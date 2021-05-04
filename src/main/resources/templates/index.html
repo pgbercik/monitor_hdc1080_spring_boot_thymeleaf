@@ -15,14 +15,19 @@
     <div id="logo">
         <h1> Temperatura i wilgotność w pokoju - Java backend </h1>
     </div>
-<!--    załączamy menu z pliku menu.html-->
+    <!--    załączamy menu z pliku menu.html-->
     <div th:insert="menu :: menu">
     </div>
     <div id="content1">
         <center>
-            <h2>Tu powinna być tabelka</h2>
+            <h2>Ostatnie 60 pomiarów</h2>
             <table id="tabela_temperatur">
-                <tr><th>nr pomiaru</th><th>temperatura na sondzie</th><th>wilgotność</th><th>czas</th></tr>
+                <tr>
+                    <th>nr pomiaru</th>
+                    <th>temperatura na sondzie</th>
+                    <th>wilgotność</th>
+                    <th>czas</th>
+                </tr>
 
                 <tr th:each="tempHum: ${tempHumList}">
                     <td th:text="${tempHum.getId()}"></td>
@@ -31,12 +36,9 @@
                     <td th:text="${tempHum.getCzas()}"></td>
                 </tr>
 
-                </table></center>
-<!--        </center>-->
+            </table>
+        </center>
     </div>
-    <!--<div id="right_menu">
-         g
-    </div>-->
     <div id="footer">
         &copy; Wszelkie prawa zastrzeżone
     </div>
