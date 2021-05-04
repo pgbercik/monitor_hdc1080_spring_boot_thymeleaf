@@ -5,6 +5,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -48,7 +49,10 @@ public class Temperature {
 
     public void setHumidity(Float humidity) { this.humidity = humidity; }
 
-    public Date getCzas() { return czas; }
+    public String getCzas() {
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return timeFormatter.format(czas);
+    }
 
 
 
