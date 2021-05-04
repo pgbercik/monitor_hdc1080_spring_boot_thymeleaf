@@ -1,0 +1,118 @@
+body {
+
+    background-image: url("../img/background3.png");
+}
+:root {
+	--background_transparency: 0.75; /*przezroczystość tła wszystkich divów*/
+}
+#container
+{  
+		
+	width: 1510px;
+	margin-left: auto;
+	margin-right: auto;
+		
+		
+}#logo
+{  
+	text-align: center;
+	padding: 10px;
+	background-color:rgba(144, 238, 144, var(--background_transparency));  /*LightGreen*/
+		
+		
+}
+#content
+{
+		
+	float: left;
+	padding: 20px;
+	width: 1330px;
+	height: 40px;
+	/*opacity: 0.75;*/
+	background-color:rgba(0, 128, 0, var(--background_transparency));  /*Green*/
+	text-align: center;
+	display: block;
+	font-size: 100%;		
+}
+#content1
+{	
+	float: left;
+	padding: 20px;
+	width: 1330px;
+	height: 520px;
+	/*opacity: 0.75;*/
+	background-color:rgba(0, 128, 0, var(--background_transparency));  /*Green*/
+	text-align: center;
+	display: block;
+	overflow-x: auto;
+	overflow-y: auto;
+	font-size: 100%;
+}
+#wykres
+{
+		
+	float: left;
+	padding: 20px;
+	width: 1330px;
+	height: 520px;
+	/*opacity: 0.8;*/
+	background-color:rgba(0, 128, 0, var(--background_transparency));  /*Green*/
+	text-align: center;
+	display: block;
+	overflow-x: auto;
+	overflow-y: auto;
+	font-size: 100%;	
+	}
+
+#menu /*pasek nawigacji*/
+{	
+	/*opacity: 0.75;*/
+	float: left;
+	background-color:rgba(255, 255, 0, var(--background_transparency));  /*Yellow*/
+	width: 100px;
+	min-height: 520px;
+	padding: 20px;
+}
+#right_menu
+{
+	opacity: 0.75;
+	float: left;
+	width: 230px;
+	min-height: 520px;
+	padding: 20px;
+	background-color:rgba(0, 128, 0, var(--background_transparency));  /*Green*/
+			
+}
+#footer
+{
+	opacity: 0.75;
+	clear: both;
+	background-color:rgba(0,0,0, var(--background_transparency));  /*Black*/
+	color: white;
+	text-align: center;
+	padding: 20px;
+}
+
+#tabela_temperatur {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 80%;
+}
+	
+#tabela_temperatur td, #tabela_temperatur th {
+	border: 1px solid #1e4620;
+	text-align: center;
+	padding: 5px;
+	opacity: 0.85;
+
+}
+/*#tabela_temperatur tr:nth-child(even){background-color: #383838;}*/
+#tabela_temperatur tr:hover {background-color: #ddd;}
+
+
+#tabela_temperatur th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	background-color: #989898;
+	color: black;
+}

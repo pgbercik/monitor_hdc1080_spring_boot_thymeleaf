@@ -1,0 +1,10 @@
+### IntelliJ IDEA ###
+
+/.idea/
+/.mvn/wrapper/
+/src/test/java/com/example/googlechartsthymeleaf/
+/target/
+/google-charts-thymeleaf.iml
+/HELP.md
+/mvnw
+/mvnw.cmd
