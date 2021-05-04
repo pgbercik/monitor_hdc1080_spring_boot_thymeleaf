@@ -19,7 +19,7 @@ public class MainPageController {
     @GetMapping("/")
     public String get(Model model) {
         List<Temperature> tempHumList = temperatureRepo.findTop60ByOrderByIdDesc();
-        tempHumList.forEach(System.out::println);
+//        tempHumList.forEach(System.out::println);
         model.addAttribute("tempHumList",tempHumList);
         return "index";
     }

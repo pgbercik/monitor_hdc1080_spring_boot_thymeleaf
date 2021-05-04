@@ -12,23 +12,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/chart")
-public class ChartController {
+@RequestMapping("/chart24h")
+public class Chart24hController {
 
     @Autowired
     private TemperatureRepo temperatureRepo;
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("chartData", getChartData());
-        return "chart";
+        model.addAttribute("chartData24h", getChart24hData());
+        return "chart24h";
     }
 
-    private List<List<Object>> getChartData() {
+    private List<List<Object>> getChart24hData() {
+
         //lista z kolejnymi wierszami danych do wykresu (czas, temperatura, wilgotność)
         List<List<Object>> dataList = new ArrayList<>();
 
-        List<Temperature> list = temperatureRepo.findTop360();
+        List<Temperature> list = temperatureRepo.findLast24h();
         list.forEach(temperature -> {
             String czas = String.valueOf(temperature.getCzas());
             czas = czas.substring(11,16);
@@ -38,8 +39,10 @@ public class ChartController {
             //dodajemy do listy kolejny wiersz
             dataList.add(List.of(czas, temp, hum));
             System.out.println(czas+ " | "+ temp+" | "+ hum);
+
         });
-        System.out.println("wiersze znalezione w chart"+ (long) dataList.size());
+        System.out.println("wiersze znalezione w chart24h"+ (long) dataList.size());
+
 
         return dataList;
     }

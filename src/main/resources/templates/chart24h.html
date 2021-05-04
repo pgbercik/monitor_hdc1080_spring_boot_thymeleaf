@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="60"/>  <!-- automatyczne odświeżanie strony co 60 sekund -->
-    <title>Chart</title>
+    <title>Chart24h</title>
     <link href="/css/style.css" rel="stylesheet">
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -19,13 +19,13 @@
       data.addColumn('number', "temperatura");
       data.addColumn('number', "wilgotność");
 
-      data.addRows([[${chartData}]]);
+      data.addRows([[${chartData24h}]]);
 
 
       var options = {
         chart: {
-          title: 'Temperatura i wilgotność w pokoju z ostatnich 6 godzin',
-          subtitle: 'próbkowanie co 1 minutę'
+          title: 'Temperatura i wilgotność w pokoju z ostatnich 24 godzin',
+          subtitle: 'próbkowanie co 5 minut'
         },
         width: 1330,
         height: 520,
@@ -47,8 +47,7 @@
 <body>
 <div id="container">
     <div id="logo">
-        <h1> Wykres 6h </h1>
-<!--        <button id="change-chart">Change to Classic</button>-->
+        <h1> Wykres 24h </h1>
     </div>
     <div th:insert="menu :: menu">
     </div>
