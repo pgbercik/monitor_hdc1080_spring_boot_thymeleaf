@@ -1,6 +1,8 @@
 # Web app for displaying data from HDC1080
 
-# [HDC1080 datasheet](https://www.ti.com/lit/ds/symlink/hdc1080.pdf?ts=1620137207479&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FHDC1080)
+Datasheet for HDC1080 can be found here:
+
+[Link](https://www.ti.com/lit/ds/symlink/hdc1080.pdf?ts=1620137207479&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FHDC1080)
 
 # Used technologies
 * Java 11,
