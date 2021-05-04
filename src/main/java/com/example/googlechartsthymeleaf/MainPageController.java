@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @Controller
-public class RootController {
+public class MainPageController {
 
     @Autowired
     private TemperatureRepo temperatureRepo;
