@@ -10,7 +10,7 @@ Datasheet for HDC1080 can be found here:
 # How it works
 Data from HDC1080 is read with Raspberry Pi, using Python3 library made by user  [switchdoclabs](https://github.com/switchdoclabs/SDL_Pi_HDC1080_Python3) Then it is added to MySQL database also installed on Pi.
 
-This app connects with that MySQL database using Spring Data and JPQL queries. From there it reads temperature and humidity data as well as measurement timestamps. This app uses a line chart from Google Charts which was described [here](https://developers.google.com/chart/interactive/docs/gallery/linechart).
+The web app connects with that MySQL database using Spring Data and JPQL queries. From there it reads temperature and humidity data as well as measurement timestamps. This app uses a line chart from Google Charts which was described [here](https://developers.google.com/chart/interactive/docs/gallery/linechart).
 
 The data is then displayed in a table (last 60 measurements).
 ![Alt text](SCREENSHOTS/tabela.png?raw=true "Title")
