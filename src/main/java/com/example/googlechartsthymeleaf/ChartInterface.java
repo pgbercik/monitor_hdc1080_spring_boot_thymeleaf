@@ -10,11 +10,11 @@ import java.util.List;
 public interface ChartInterface {
 
     /**
-     * Przekazujemy dane z metody getChartDate() do wykresu.*/
+     * We're forwarding data from getChartDate() to the chart.*/
     String index(Model model);
 
     /**
-     * Pobieramy sobie dane z BD za pomocą odpowiedniej kwerendy.
+     * We're retrieving data from database using a query. A query result is given to the method as a parameter.
      * */
     default List<List<Object>> getChartData(List<Temperature> list) {
 
@@ -22,10 +22,10 @@ public interface ChartInterface {
     }
 
     /**
-     * Formatujemy dane do postaci wymaganej przez Google Chart.
+     * We're formatting data so tht it is readable by GoogleChart.
      * */
     private List<List<Object>> formatDataForChart(List<Temperature> list) {
-        //lista z kolejnymi wierszami danych do wykresu (czas, temperatura, wilgotność)
+        //list with subsequent rows containing time, temperature, humidity in each row
         List<List<Object>> targetList = new ArrayList<>();
 
         if (!list.isEmpty()) {
@@ -35,7 +35,7 @@ public interface ChartInterface {
                 double temp = temperature.getTemperature();
                 double hum = temperature.getHumidity();
 
-                //dodajemy do listy kolejny wiersz
+                //adding another row to the list
                 targetList.add(List.of(czas, temp, hum));
                 System.out.println(czas+ " | "+ temp+" | "+ hum);
 
@@ -43,7 +43,7 @@ public interface ChartInterface {
         } else {
             targetList.add(List.of(LocalDateTime.now(),0.0,0.0));
         }
-        System.out.println("wiersze znalezione w "+getClass().getName()+" : "+ (long) targetList.size());
+        System.out.println("rows found in "+getClass().getName()+" : "+ (long) targetList.size());
 
         return targetList;
     }

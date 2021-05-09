@@ -9,18 +9,18 @@ import java.util.List;
 @Repository
 public interface TemperatureRepo extends CrudRepository<Temperature,Long> {
     //    do tabelki
-    /** ostatnie 60 próbek*/
+    /** last 60 measurements*/
     public List<Temperature> findTop60ByOrderByIdDesc();
 
     public List<Temperature> findAll();
 
     //do wykresu
 
-    /**ostatnie 24h co 5 minut*/
+    /**last 24h, measurements taken every 5 minutes*/
     @Query("SELECT t FROM Temperature t WHERE t.id >=((Select max(t.id) from Temperature t) -1440) AND MOD (t.id,2.5)=0 order by t.id")
     public List<Temperature> findLast24h();
 
-    /** ostatnie 6 h co minutę*/
+    /** last 6h, measurements taken every 1 minute*/
     @Query("SELECT t FROM Temperature t WHERE t.id >=((Select max(t.id) from Temperature t) -360) order by t.id")
     public List<Temperature> findTop360();
 

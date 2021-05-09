@@ -17,8 +17,8 @@ public class Chart24hController implements ChartInterface {
 
     @GetMapping
     public String index(Model model) {
-        //pobieramy sobie dane do wykresu,
-        // przekazujemy je do formatki html i tę formatkę zwracamy
+        // we retrieve data from database(getChartData))
+        //then we forward data to html template and return this template
         model.addAttribute("chartData24h", getChartData(temperatureRepo.findLast24h()));
         return "chart24h";
     }

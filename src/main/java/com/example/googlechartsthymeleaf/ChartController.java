@@ -17,8 +17,8 @@ public class ChartController implements ChartInterface {
 
     @GetMapping
     public String index(Model model) {
-        //pobieramy sobie dane do wykresu,
-        // przekazujemy je do formatki html i tę formatkę zwracamy
+        // we retrieve data from database(getChartData))
+        //then we forward data to html template and return this template
         model.addAttribute("chartData", getChartData(temperatureRepo.findTop360()));
         return "chart";
     }
