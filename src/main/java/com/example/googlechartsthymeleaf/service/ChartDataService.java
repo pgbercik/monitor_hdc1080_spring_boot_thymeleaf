@@ -1,24 +1,33 @@
-package com.example.googlechartsthymeleaf;
+package com.example.googlechartsthymeleaf.service;
 
 import com.example.googlechartsthymeleaf.data_model.Temperature;
-import org.springframework.ui.Model;
+import com.example.googlechartsthymeleaf.data_model.TemperatureRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.awt.font.TextMeasurer;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface ChartInterface {
+@Service
+public class ChartDataService {
+
+    @Autowired
+    private TemperatureRepo temperatureRepo;
 
     /**
-     * We're forwarding data from getChartDate() to the chart.*/
-    String index(Model model);
-
-    /**
-     * We're retrieving data from database using a query. A query result is given to the method as a parameter.
+     * We're retrieving data from database and returning in proper format (for 6h chart).
      * */
-    default List<List<Object>> getChartData(List<Temperature> list) {
+    public List<List<Object>> getChartData24H() {
+            return formatDataForChart(temperatureRepo.findLast24h());
+    }
 
-        return formatDataForChart(list);
+    /**
+     * We're retrieving data from database and returning in proper format (for 6h chart).
+     * */
+    public List<List<Object>> getChartData6H() {
+        return formatDataForChart(temperatureRepo.findTop360());
     }
 
     /**
@@ -40,12 +49,9 @@ public interface ChartInterface {
                 System.out.println(czas+ " | "+ temp+" | "+ hum);
 
             });
-        } else {
-            targetList.add(List.of(LocalDateTime.now(),0.0,0.0));
         }
         System.out.println("rows found in "+getClass().getName()+" : "+ (long) targetList.size());
 
         return targetList;
     }
-
 }

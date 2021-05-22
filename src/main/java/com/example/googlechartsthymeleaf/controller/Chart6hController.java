@@ -1,6 +1,6 @@
-package com.example.googlechartsthymeleaf;
+package com.example.googlechartsthymeleaf.controller;
 
-import com.example.googlechartsthymeleaf.data_model.TemperatureRepo;
+import com.example.googlechartsthymeleaf.service.ChartDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,18 +9,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/chart")
-public class ChartController implements ChartInterface {
+public class Chart6hController {
 
     @Autowired
-    private TemperatureRepo temperatureRepo;
+    ChartDataService chartDataService;
 
 
     @GetMapping
     public String index(Model model) {
-        // we retrieve data from database(getChartData))
+        // we retrieve data from database(getChartData6H))
         //then we forward data to html template and return this template
-        model.addAttribute("chartData", getChartData(temperatureRepo.findTop360()));
-        return "chart";
+        var data = chartDataService.getChartData6H();
+        if (!data.isEmpty()) {
+            model.addAttribute("chartData", data);
+            return "chart";
+        }
+        else return "chartError";
     }
 
 
