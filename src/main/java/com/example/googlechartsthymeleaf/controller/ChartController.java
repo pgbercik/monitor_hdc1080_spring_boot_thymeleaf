@@ -8,16 +8,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/chart")
 public class ChartController {
 
-    @Autowired
     ChartDataService chartDataService;
 
+    @Autowired
+    public ChartController(ChartDataService chartDataService) {
+        this.chartDataService = chartDataService;
+    }
 
     @GetMapping
     public String index(Model model, @RequestParam(defaultValue = "6h") String type) {
