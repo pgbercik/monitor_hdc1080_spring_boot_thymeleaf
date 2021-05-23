@@ -1,7 +1,6 @@
 package com.example.googlechartsthymeleaf.controller;
 
 import com.example.googlechartsthymeleaf.data_model.Temperature;
-import com.example.googlechartsthymeleaf.data_model.TemperatureRepo;
 import com.example.googlechartsthymeleaf.service.TableDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,7 @@ public class ResultTableController {
     public String get(Model model) {
         List<Temperature> tempHumList = tableDataService.getDataForTable();
         model.addAttribute("tempHumList", tempHumList);
-        
+
         return "index";
     }
 }
