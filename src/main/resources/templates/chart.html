@@ -21,11 +21,24 @@
 
       data.addRows([[${chartData}]]);
 
+      var title='';
+      var sub='';
+
+      if ([[${type}]]=='24h') {
+         title='Temperatura i wilgotność w pokoju z ostatnich 24 godzin';
+         sub='próbkowanie co 5 minut';
+      }
+      else {
+        title='Temperatura i wilgotność w pokoju z ostatnich 6 godzin';
+         sub='próbkowanie co 1 minutę';
+      }
+
+
 
       var options = {
         chart: {
-          title: 'Temperatura i wilgotność w pokoju z ostatnich 6 godzin',
-          subtitle: 'próbkowanie co 1 minutę'
+          title: title,
+          subtitle: sub
         },
         width: 1330,
         height: 520,
@@ -49,8 +62,8 @@
 <body>
 <div id="container">
     <div id="logo">
-        <h1> Wykres 6h </h1>
-        <!--        <button id="change-chart">Change to Classic</button>-->
+        <h1 th:if="${type} == '6h'"> Wykres 6h </h1>
+        <h1 th:if="${type} == '24h'"> Wykres 24h </h1>
     </div>
     <div th:insert="menu :: menu">
     </div>
