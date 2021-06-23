@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 @Controller
 @RequestMapping("/chart")
 public class ChartController {
@@ -21,7 +22,6 @@ public class ChartController {
         this.chartDataService = chartDataService;
     }
 
-    @GetMapping
     public String index(Model model, @RequestParam(defaultValue = "6h") String type) {
         List<List<Object>> data;
 
