@@ -1,5 +1,5 @@
 
-package com.example.googlechartsthymeleaf.domain;
+package com.example.googlechartsthymeleaf.json_model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,19 +8,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @NoArgsConstructor
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({
-        "lon",
-        "lat"
+        "speed",
+        "deg",
+        "gust"
 })
-public class Coord {
+public class Wind {
 
-    @JsonProperty("lon")
-    public Double lon;
-    @JsonProperty("lat")
-    public Double lat;
+    @JsonProperty("speed")
+    public Double speed;
+    @JsonProperty("deg")
+    public Integer deg;
+    @JsonProperty("gust")
+    public Double gust;
 
 }

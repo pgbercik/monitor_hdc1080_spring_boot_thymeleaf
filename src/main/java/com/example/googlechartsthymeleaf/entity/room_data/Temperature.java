@@ -1,4 +1,4 @@
-package com.example.googlechartsthymeleaf.domain;
+package com.example.googlechartsthymeleaf.entity.room_data;
 
 
 import org.hibernate.annotations.ColumnDefault;

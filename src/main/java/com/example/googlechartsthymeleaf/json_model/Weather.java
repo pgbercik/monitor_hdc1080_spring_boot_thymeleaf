@@ -1,5 +1,5 @@
 
-package com.example.googlechartsthymeleaf.domain;
+package com.example.googlechartsthymeleaf.json_model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

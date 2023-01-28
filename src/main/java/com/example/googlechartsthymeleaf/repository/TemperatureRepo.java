@@ -1,6 +1,6 @@
 package com.example.googlechartsthymeleaf.repository;
 
-import com.example.googlechartsthymeleaf.domain.Temperature;
+import com.example.googlechartsthymeleaf.entity.room_data.Temperature;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

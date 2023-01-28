@@ -1,0 +1,46 @@
+{
+  "coord": {
+    "lon": 18.2554,
+    "lat": 52.7858
+  },
+  "weather": [
+    {
+      "id": 803,
+      "main": "Clouds",
+      "description": "zachmurzenie umiarkowane",
+      "icon": "04d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": -1.05,
+    "feels_like": -4.98,
+    "temp_min": -1.18,
+    "temp_max": -0.59,
+    "pressure": 1026,
+    "humidity": 61,
+    "sea_level": 1026,
+    "grnd_level": 1014
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 3.24,
+    "deg": 304,
+    "gust": 3.49
+  },
+  "clouds": {
+    "all": 60
+  },
+  "dt": 1674916183,
+  "sys": {
+    "type": 2,
+    "id": 20544,
+    "country": "PL",
+    "sunrise": 1674887792,
+    "sunset": 1674919375
+  },
+  "timezone": 3600,
+  "id": 7532534,
+  "name": "Inowrocław",
+  "cod": 200
+}
