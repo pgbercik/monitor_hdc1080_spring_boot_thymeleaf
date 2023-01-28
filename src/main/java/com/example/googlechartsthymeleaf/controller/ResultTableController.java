@@ -1,6 +1,6 @@
 package com.example.googlechartsthymeleaf.controller;
 
-import com.example.googlechartsthymeleaf.data_model.Temperature;
+import com.example.googlechartsthymeleaf.domain.Temperature;
 import com.example.googlechartsthymeleaf.service.TableDataService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,7 +1,7 @@
 package com.example.googlechartsthymeleaf.service;
 
-import com.example.googlechartsthymeleaf.data_model.Temperature;
-import com.example.googlechartsthymeleaf.data_model.TemperatureRepo;
+import com.example.googlechartsthymeleaf.domain.Temperature;
+import com.example.googlechartsthymeleaf.repository.TemperatureRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
