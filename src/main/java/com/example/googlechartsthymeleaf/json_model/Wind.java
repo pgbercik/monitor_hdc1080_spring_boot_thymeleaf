@@ -21,10 +21,10 @@ import lombok.Setter;
 public class Wind {
 
     @JsonProperty("speed")
-    public Double speed;
+    public Float speed;
     @JsonProperty("deg")
-    public Integer deg;
+    public Short deg;
     @JsonProperty("gust")
-    public Double gust;
+    public Float gust;
 
 }

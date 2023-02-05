@@ -13,18 +13,12 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({
-        "type",
-        "id",
         "country",
         "sunrise",
         "sunset"
 })
 public class Sys {
 
-    @JsonProperty("type")
-    public Integer type;
-    @JsonProperty("id")
-    public Integer id;
     @JsonProperty("country")
     public String country;
     @JsonProperty("sunrise")

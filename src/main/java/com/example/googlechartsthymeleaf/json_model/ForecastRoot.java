@@ -1,4 +1,3 @@
-
 package com.example.googlechartsthymeleaf.json_model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -8,39 +7,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonPropertyOrder({
-        "coord",
-        "weather",
-        "base",
-        "main",
-        "visibility",
-        "wind",
-        "clouds",
-        "dt",
-        "sys",
-        "timezone",
-        "id",
-        "name",
-        "cod"
-})
-public class Root {
+@JsonPropertyOrder({"coord", "weather", "main", "visibility", "wind", "clouds", "dt", "sys", "timezone", "name"})
+public class ForecastRoot {
 
     @JsonProperty("coord")
     public Coord coord;
     @JsonProperty("weather")
-    public List<Weather> weather = null;
-    @JsonProperty("base")
-    public String base;
+    public List<Weather> weather = new ArrayList<>();
     @JsonProperty("main")
     public Main main;
     @JsonProperty("visibility")
-    public Integer visibility;
+    public Short visibility;
     @JsonProperty("wind")
     public Wind wind;
     @JsonProperty("clouds")
@@ -50,12 +34,9 @@ public class Root {
     @JsonProperty("sys")
     public Sys sys;
     @JsonProperty("timezone")
-    public Integer timezone;
-    @JsonProperty("id")
-    public Integer id;
+    public Short timezone;
+
     @JsonProperty("name")
     public String name;
-    @JsonProperty("cod")
-    public Integer cod;
 
 }
