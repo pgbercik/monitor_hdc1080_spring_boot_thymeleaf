@@ -3,10 +3,12 @@ package com.example.googlechartsthymeleaf.service;
 import com.example.googlechartsthymeleaf.entity.outside_weather.CurrentWeatherEntity;
 import com.example.googlechartsthymeleaf.json_model.ForecastRoot;
 import com.example.googlechartsthymeleaf.mapper.ForecastRootToCurrentWeatherEntityMapper;
+import com.example.googlechartsthymeleaf.repository.CurrentWeatherRepo;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -23,23 +25,24 @@ public class WeatherService {
     private static final String LONGITUDE = "18.2609";
     private static final String UNITS = "metric";
     private static final String LANGUAGE = "pl";
-
-    private ForecastRoot forecastRoot;
     private final ForecastRootToCurrentWeatherEntityMapper mapper;
+    private final CurrentWeatherRepo currentWeatherRepo;
 
-    public ForecastRoot getWeatherForecast() {
-        if (null == forecastRoot) {
-            log.info("Fetching weather forecast from openweathermap API");
-            forecastRoot = getWeatherFromApiFromApi();
-        }
-        return forecastRoot;
+    public CurrentWeatherEntity getWeatherForecast() {
+        return currentWeatherRepo.findFirstByOrderByIdDesc()
+                .orElseThrow(() -> new IllegalStateException("No weather data fetched from DB"));
     }
 
-    public CurrentWeatherEntity getCurrentWeatherEntity() {
-        return mapper.apply(getWeatherForecast());
+    @Scheduled(cron = "${fetch.weather.interval:*/15 * * * * ?}")
+    public void saveWeatherToDb() {
+        log.info("Fetching weather forecast from openweathermap API");
+        CurrentWeatherEntity currentWeatherEntity = mapper.apply(getWeatherFromApi());
+
+        log.info("Saving weather forecast to database");
+        currentWeatherRepo.save(currentWeatherEntity);
     }
 
-    private ForecastRoot getWeatherFromApiFromApi() {
+    private ForecastRoot getWeatherFromApi() {
         WebClient client = WebClient.create(BASE_URL);
         return client.get()
                 .uri(uriBuilder -> uriBuilder.path(URL_PATH).queryParam("lat", LATITUDE)
