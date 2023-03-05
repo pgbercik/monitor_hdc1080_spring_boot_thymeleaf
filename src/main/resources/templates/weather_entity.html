@@ -14,16 +14,18 @@
     <div th:insert="menu :: menu">
     </div>
     <div id="wykres">
-        <h2 th:text="'prognoza dla: '+${entity.getCityName()}" />
-        <h2 th:text="'opis: '+${entity.getWeatherDescription()}" />
-        <h2 th:text="'temperatura: '+${entity.getTemperature()}+'℃'"/>
-        <h2 th:text="'temperatura odczuwalna: '+${entity.getPerceivedTemperature()}+'℃'"/>
-        <h2 th:text="'wilgotność powietrza: '+${entity.getHumidity()}+'%'"/>
-        <h2 th:text="'ciśnienie atmosferyczne: '+${entity.getPressureSeaLevel()}+'hPa'"/>
-        <h2 th:text="'wschód słońca: '+${entity.getSunriseTime()}"/>
-        <h2 th:text="'zachód słońca: '+${entity.getSunsetTime()}"/>
+        <h2 th:text="'prognoza dla: '+${entity.getCityName()}"></h2>
+        <h2 th:text="'opis: '+${entity.getWeatherDescription()}"></h2>
+        <h2 th:text="'temperatura: '+${entity.getTemperature()}+' ℃'"></h2>
+        <h2 th:text="'temperatura odczuwalna: '+${entity.getPerceivedTemperature()}+' ℃'"></h2>
+        <h2 th:text="'wilgotność powietrza: '+${entity.getHumidity()}+' %'"></h2>
+        <h2 th:text="'ciśnienie atmosferyczne: '+${entity.getPressureSeaLevel()}+' hPa'"></h2>
+        <h2 th:text="'wschód słońca: '+${entity.getSunriseTime()}"></h2>
+        <h2 th:text="'zachód słońca: '+${entity.getSunsetTime()}"></h2>
+        <h2 th:text="'wiatr: '+${entity.getWindSpeed()}+' m/s'"></h2>
+        <h2 th:text="'wiatru(poryw): '+${entity.getWindGustSpeed()}+' m/s'"></h2>
         <br><br>
-        <h2 th:text="'pomiaru dokonano: '+${entity.getMeasurementTime()}"/>
+        <h2 th:text="'pomiaru dokonano: '+${entity.getMeasurementTime()}"></h2>
 
     </div>
     <div id="footer">

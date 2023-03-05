@@ -18,6 +18,7 @@ public class CurrentWeatherDto {
     private Integer humidity;
     private Integer pressureSeaLevel;
     private Float windSpeed;
+    private Float windGustSpeed;
     private LocalDateTime measurementTime;
     private String country;
     private LocalTime sunriseTime;

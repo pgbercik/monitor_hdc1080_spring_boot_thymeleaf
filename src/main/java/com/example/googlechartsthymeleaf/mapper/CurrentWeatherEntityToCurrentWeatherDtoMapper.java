@@ -19,6 +19,7 @@ public class CurrentWeatherEntityToCurrentWeatherDtoMapper {
                 .humidity(entity.getHumidity())
                 .pressureSeaLevel(entity.getPressureSeaLevel())
                 .windSpeed(entity.getWindSpeed())
+                .windGustSpeed(entity.getWindGustSpeed())
                 .measurementTime(convertTime(entity.getMeasurementTime(), entity.getTimezoneOffset()))
                 .country(entity.getCountry())
                 .sunriseTime(convertTime(entity.getSunriseTime(), entity.getTimezoneOffset()).toLocalTime())

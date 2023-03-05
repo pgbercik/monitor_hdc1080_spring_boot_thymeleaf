@@ -33,6 +33,7 @@ class CurrentWeatherEntityToCurrentWeatherDtoMapperTest {
         assertEquals(sourceEntity.getHumidity(), dto.getHumidity());
         assertEquals(sourceEntity.getPressureSeaLevel(), dto.getPressureSeaLevel());
         assertEquals(sourceEntity.getWindSpeed(), dto.getWindSpeed());
+        assertEquals(sourceEntity.getWindGustSpeed(), dto.getWindGustSpeed());
         assertEquals(epochTimeToLocalDateTime(sourceEntity.getMeasurementTime(), sourceEntity.getTimezoneOffset()),
                 dto.getMeasurementTime());
 
