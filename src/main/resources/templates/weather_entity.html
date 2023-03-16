@@ -5,6 +5,17 @@
     <meta http-equiv="refresh" content="60"/>  <!-- automatically refresh page every 60 seconds -->
     <title>Chart</title>
     <link href="/css/style.css" rel="stylesheet">
+    <style>
+table, th, td {
+  border:1px solid black;
+}
+p {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+
+    </style>
 </head>
 <body>
 <div id="container">
@@ -14,18 +25,41 @@
     <div th:insert="menu :: menu">
     </div>
     <div id="wykres">
-        <h2 th:text="'prognoza dla: '+${entity.getCityName()}"></h2>
-        <h2 th:text="'opis: '+${entity.getWeatherDescription()}"></h2>
-        <h2 th:text="'temperatura: '+${entity.getTemperature()}+' ℃'"></h2>
-        <h2 th:text="'temperatura odczuwalna: '+${entity.getPerceivedTemperature()}+' ℃'"></h2>
-        <h2 th:text="'wilgotność powietrza: '+${entity.getHumidity()}+' %'"></h2>
-        <h2 th:text="'ciśnienie atmosferyczne: '+${entity.getPressureSeaLevel()}+' hPa'"></h2>
-        <h2 th:text="'wschód słońca: '+${entity.getSunriseTime()}"></h2>
-        <h2 th:text="'zachód słońca: '+${entity.getSunsetTime()}"></h2>
-        <h2 th:text="'wiatr: '+${entity.getWindSpeed()}+' m/s'"></h2>
-        <h2 th:text="'wiatru(poryw): '+${entity.getWindGustSpeed()}+' m/s'"></h2>
-        <br><br>
-        <h2 th:text="'pomiaru dokonano: '+${entity.getMeasurementTime()}"></h2>
+        <table style="width:100%">
+            <tr>
+                <td colspan="2"><p th:text="'prognoza dla: '+${entity.getCityName()}"></p></td>
+            </tr>
+            <tr>
+                <td colspan="2"><p th:text="'opis: '+${entity.getWeatherDescription()}"></p></td>
+            </tr>
+            <tr>
+                <td><p th:text="'temperatura: '+${entity.getTemperature()}+' ℃'"></p></td>
+                <td><p th:text="'temperatura odczuwalna: '+${entity.getPerceivedTemperature()}+' ℃'"></p></td>
+
+            </tr>
+            <tr>
+                <td><p th:text="'wilgotność powietrza: '+${entity.getHumidity()}+' %'"></p>
+                </td>
+                <td><p th:text="'ciśnienie atmosferyczne: '+${entity.getPressureSeaLevel()}+' hPa'"></p>
+                </td>
+            </tr>
+            <tr>
+                <td><p th:text="'wschód słońca: '+${entity.getSunriseTime()}"></p>
+                </td>
+                <td><p th:text="'zachód słońca: '+${entity.getSunsetTime()}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td><p th:text="'wiatr: '+${entity.getWindSpeed()}+' m/s'"></p></td>
+                <td><p th:text="'wiatru(poryw): '+${entity.getWindGustSpeed()}+' m/s'"></p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><p th:text="'pomiaru dokonano: '+${entity.getMeasurementTime()}"></p>
+                </td>
+            </tr>
+        </table>
+
 
     </div>
     <div id="footer">
