@@ -46,7 +46,7 @@ class CurrentWeatherEntityToCurrentWeatherDtoMapperTest {
 
     }
 
-    private static LocalDateTime epochTimeToLocalDateTime(Integer epoch, Short timezoneOffset) {
+    private static LocalDateTime epochTimeToLocalDateTime(Long epoch, Short timezoneOffset) {
         return LocalDateTime.ofEpochSecond(epoch, 0, ZoneOffset.ofTotalSeconds(timezoneOffset));
     }
 }

@@ -22,10 +22,10 @@ public class CurrentWeatherEntityTestResource {
                 .windSpeed(15f)
                 .windDegree((short) 16)
                 .windGustSpeed(17f)
-                .measurementTime(1676163961)
+                .measurementTime(1676163961L)
                 .country("Country")
-                .sunriseTime(1676182252)
-                .sunsetTime(1676217102)
+                .sunriseTime(1676182252L)
+                .sunsetTime(1676217102L)
                 .timezoneOffset((short) 3600)
                 .cityName("cityName")
                 .build();
