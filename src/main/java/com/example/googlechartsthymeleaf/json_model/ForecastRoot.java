@@ -30,7 +30,7 @@ public class ForecastRoot {
     @JsonProperty("clouds")
     public Clouds clouds;
     @JsonProperty("dt")
-    public Integer dt;
+    public Long dt;
     @JsonProperty("sys")
     public Sys sys;
     @JsonProperty("timezone")

@@ -22,7 +22,8 @@ public class ChartController {
 
         //depending on RequestParam we fetch data for 24h or 6h chart
         if (type.equals("6h")) data = chartDataService.getChartData6H();
-        else data = chartDataService.getChartData24H();
+        else if (type.equals("24h")) data = chartDataService.getChartData24H();
+        else data = chartDataService.getChartData24hOutside();
 
 
         if (!data.isEmpty()) {

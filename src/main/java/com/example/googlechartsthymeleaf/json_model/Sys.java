@@ -22,8 +22,8 @@ public class Sys {
     @JsonProperty("country")
     public String country;
     @JsonProperty("sunrise")
-    public Integer sunrise;
+    public Long sunrise;
     @JsonProperty("sunset")
-    public Integer sunset;
+    public Long sunset;
 
 }

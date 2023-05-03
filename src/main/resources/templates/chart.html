@@ -22,15 +22,18 @@
       data.addRows([[${chartData}]]);
 
 
-      if ([[${type}]]==='24h') {
-         title='Temperatura i wilgotność w pokoju z ostatnich 24 godzin';
-         sub='próbkowanie co 5 minut';
-      }
-      else {
-        title='Temperatura i wilgotność w pokoju z ostatnich 6 godzin';
-         sub='próbkowanie co 1 minutę';
-      }
-
+    if ([[${type}]]==='24h') {
+     title='Temperatura i wilgotność w pokoju z ostatnich 24 godzin';
+     sub='próbkowanie co 5 minut';
+    }
+    if ([[${type}]]==='6h') {
+    title='Temperatura i wilgotność w pokoju z ostatnich 6 godzin';
+     sub='próbkowanie co 1 minutę';
+    }
+        if ([[${type}]]==='24h_out') {
+            title='Temperatura i wilgotność na zewnątrz z ostatnich 6 godzin';
+            sub='-';
+        }
 
 
       var options = {

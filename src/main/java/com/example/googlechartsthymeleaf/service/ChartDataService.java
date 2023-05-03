@@ -1,17 +1,26 @@
 package com.example.googlechartsthymeleaf.service;
 
+import com.example.googlechartsthymeleaf.entity.outside_weather.TempHumTimeOnly;
 import com.example.googlechartsthymeleaf.entity.room_data.Temperature;
+import com.example.googlechartsthymeleaf.repository.CurrentWeatherRepo;
 import com.example.googlechartsthymeleaf.repository.TemperatureRepo;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ChartDataService {
     private final TemperatureRepo temperatureRepo;
-    public ChartDataService(TemperatureRepo temperatureRepo) {
+    private final CurrentWeatherRepo currentWeatherRepo;
+
+    public ChartDataService(TemperatureRepo temperatureRepo, CurrentWeatherRepo currentWeatherRepo) {
         this.temperatureRepo = temperatureRepo;
+        this.currentWeatherRepo = currentWeatherRepo;
     }
 
 
@@ -27,6 +36,14 @@ public class ChartDataService {
      */
     public List<List<Object>> getChartData6H() {
         return formatDataForChart(temperatureRepo.findTop360());
+    }
+
+    public List<List<Object>> getChartData24hOutside() {
+        long epoch24HoursFromNow = LocalDateTime.now()
+                .minus(24, ChronoUnit.HOURS)
+                .atZone(ZoneId.systemDefault())
+                .toEpochSecond();
+        return formatDataForChart(currentWeatherRepo.getTempHumTimeFromLast24Hours(epoch24HoursFromNow));
     }
 
     /**
@@ -50,5 +67,11 @@ public class ChartDataService {
         }
 
         return targetList;
+    }
+
+    private List<List<Object>> formatDataForChart(Set<TempHumTimeOnly> list) {
+        return list.stream()
+                .map(t -> List.of(t.getHourMinuteFromUnixTime(), t.getTemperature(), ((Object) t.getHumidity())))
+                .toList();
     }
 }

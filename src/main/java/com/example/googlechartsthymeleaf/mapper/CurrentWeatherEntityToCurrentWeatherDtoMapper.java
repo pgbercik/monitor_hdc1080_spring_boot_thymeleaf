@@ -34,7 +34,7 @@ public class CurrentWeatherEntityToCurrentWeatherDtoMapper {
      * @param offset    time offset in seconds
      * @return LocalDateTime
      */
-    private LocalDateTime convertTime(Integer epochTime, Short offset) {
+    private LocalDateTime convertTime(Long epochTime, Short offset) {
         return LocalDateTime.ofEpochSecond(epochTime, 0, ZoneOffset.ofTotalSeconds(offset));
     }
 }

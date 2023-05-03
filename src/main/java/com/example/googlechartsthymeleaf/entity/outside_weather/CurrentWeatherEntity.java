@@ -43,10 +43,10 @@ public class CurrentWeatherEntity {
     private Float windSpeed;
     private Short windDegree;
     private Float windGustSpeed;
-    private Integer measurementTime;
+    private Long measurementTime;
     private String country;
-    private Integer sunriseTime;
-    private Integer sunsetTime;
+    private Long sunriseTime;
+    private Long sunsetTime;
     private Short timezoneOffset;
     private String cityName;
 
