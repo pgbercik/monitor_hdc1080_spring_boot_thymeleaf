@@ -11,19 +11,17 @@ import java.util.List;
 public interface TemperatureRepo extends CrudRepository<Temperature,Long> {
     //    do tabelki
     /** last 60 measurements*/
-    public List<Temperature> findTop60ByOrderByIdDesc();
-
-    public List<Temperature> findAll();
+    List<Temperature> findTop60ByOrderByIdDesc();
 
     //do wykresu
 
     /**last 24h, measurements taken every 5 minutes*/
-    @Query("SELECT t FROM Temperature t WHERE t.id >=((Select max(t.id) from Temperature t) -1440) AND MOD (t.id,2.5)=0 order by t.id")
-    public List<Temperature> findLast24h();
+    @Query("SELECT t FROM Temperature t WHERE t.id >=((Select max(t.id) from Temperature t) -1440) AND MOD (t.id,5)=0 order by t.id")
+    List<Temperature> findLast24h();
 
     /** last 6h, measurements taken every 1 minute*/
     @Query("SELECT t FROM Temperature t WHERE t.id >=((Select max(t.id) from Temperature t) -360) order by t.id")
-    public List<Temperature> findTop360();
+    List<Temperature> findTop360();
 
 
 }
