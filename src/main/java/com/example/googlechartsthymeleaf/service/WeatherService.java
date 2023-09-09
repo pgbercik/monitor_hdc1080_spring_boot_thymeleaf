@@ -33,7 +33,7 @@ public class WeatherService {
                 .orElseThrow(() -> new IllegalStateException("No weather data fetched from DB"));
     }
 
-    @Scheduled(cron = "${fetch.weather.interval:*/15 * * * * ?}")
+    @Scheduled(cron = "${fetch.weather.interval:0 0/15 * * * ?}")
     public void saveWeatherToDb() {
         log.info("Fetching weather forecast from openweathermap API");
         CurrentWeatherEntity currentWeatherEntity = mapper.apply(getWeatherFromApi());
