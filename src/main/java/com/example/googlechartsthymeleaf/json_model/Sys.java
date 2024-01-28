@@ -25,5 +25,7 @@ public class Sys {
     public Long sunrise;
     @JsonProperty("sunset")
     public Long sunset;
+    @JsonProperty("pod")
+    public String pod;
 
 }
