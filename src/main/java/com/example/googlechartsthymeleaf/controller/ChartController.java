@@ -39,13 +39,12 @@ public class ChartController {
             case ROOM_6H -> chartDataService.getChartData6H();
             case ROOM_24H -> chartDataService.getChartData24H();
             case OUTSIDE_24H -> chartDataService.getChartData24hOutside();
+            case OUTSIDE_5_DAYS_FORECAST -> chartDataService.getChartDataFiveDays();
         };
 
         model.addAttribute("chartData", data);
         model.addAttribute("type", type);
 
         return !data.isEmpty() ? "chart" : "chartError";
-
     }
-
 }

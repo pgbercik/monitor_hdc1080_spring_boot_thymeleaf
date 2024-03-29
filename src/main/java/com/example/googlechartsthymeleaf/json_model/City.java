@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-class City {
+public class City {
     private Integer id;
     private String name;
     private Coord coord;

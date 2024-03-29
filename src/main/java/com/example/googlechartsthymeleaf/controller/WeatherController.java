@@ -21,12 +21,4 @@ public class WeatherController {
         return "weather_entity";
     }
 
-    @GetMapping("/5_day_forecast")
-    String getFiveDayForecast(Model model) {
-        model.addAttribute("entity", weatherService.getFiveDaysForecast());
-
-        return "5_day_forecast";
-    }
-
-
 }

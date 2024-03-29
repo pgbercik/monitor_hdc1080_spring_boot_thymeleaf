@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-class List {
+public class List {
     private Integer dt;
     private Main main;
     private java.util.List<Weather> weather;
@@ -20,6 +20,6 @@ class List {
     private Integer pop;
     private Sys sys;
 
-    @JsonProperty("dtTxt")
+    @JsonProperty("dt_txt")
     private String dtTxt;
 }
