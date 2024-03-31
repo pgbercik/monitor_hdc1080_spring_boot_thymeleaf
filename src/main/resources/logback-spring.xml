@@ -2,7 +2,7 @@
     <property resource="application.properties" />
     <property name="logPattern" value="%date [%thread] %-5level %logger{35} - %msg%n"/>
     <property name="logEncoding" value="UTF-8"/>
-    <property name="logDirectory" value="${log.location}"/>
+    <springProperty scope="context" name="logDirectory" source="logging.file.path"/>
     <property name="file_initial_name" value="app"/>
     <property name="archive" value="archive"/>
 
