@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="60"/>  <!-- automatyczne odświeżanie strony co 60 sekund -->
+    <title>Chart</title>
+    <link href="/css/style.css" rel="stylesheet">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        google.charts.load('current', {'packages': ['bar', 'corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', "czas");
+            data.addColumn('number', "temperatura");
+            // data.addColumn('number', "wilgotność");
+
+            data.addRows([[${chartData}]]);
+
+            title = 'Prognoza pogody na 5 dni ';
+            sub = 'próbkowanie co 3 godziny';
+
+
+
+            var options = {
+                chart: {
+                    title: title,
+                    subtitle: sub
+                },
+                width: 1330,
+                height: 520,
+                backgroundColor: '#f2f2f2',
+                axes: {
+                    x: {
+                        0: {side: 'bottom'}
+                    }
+                }
+            };
+
+            var bar = new google.charts.Bar(document.getElementById('wykres'));
+            bar.draw(data, google.charts.Bar.convertOptions(options));
+        }
+
+        drawChart();
+
+
+    </script>
+</head>
+<body>
+<div id="container">
+    <div id="logo">
+        <h1 th:if="${type} == '6h'"> Wykres 6h </h1>
+        <h1 th:if="${type} == '24h'"> Wykres 24h </h1>
+        <h1 th:if="${type} == '24h_out'"> Wykres 24h (temperatura na zewnątrz) </h1>
+        <h1 th:if="${type} == '5_days_forecast'"> Prognoza na 5 dni </h1>
+    </div>
+    <div th:insert="~{menu :: menu}">
+    </div>
+    <div id="wykres"></div>
+    <div id="footer">
+        &copy; Wszelkie prawa zastrzeżone
+    </div>
+
+</div>
+
+
+</body>
+</html>

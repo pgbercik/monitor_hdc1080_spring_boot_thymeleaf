@@ -45,6 +45,13 @@ public class ChartController {
         model.addAttribute("chartData", data);
         model.addAttribute("type", type);
 
-        return !data.isEmpty() ? "chart" : "chartError";
+        if (data.isEmpty()) {
+            return "chartError";
+        }
+
+        return switch (chartType.get()) {
+            case ROOM_6H, ROOM_24H, OUTSIDE_24H -> "chart";
+            case OUTSIDE_5_DAYS_FORECAST -> "bar_chart";
+        };
     }
 }
