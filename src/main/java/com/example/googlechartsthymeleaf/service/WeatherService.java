@@ -18,9 +18,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Slf4j
 @RequiredArgsConstructor
 public class WeatherService {
-    @Value("${appid}")
+
+    @Value("${open-api.app-id}")
     private String appId;
-    private static final String BASE_URL = "https://api.openweathermap.org";
+
     private static final String SINGLE_FORECAST = "/data/2.5/weather";
     private static final String FIVE_DAYS_FORECAST = "data/2.5/forecast";
     private static final String LATITUDE = "52.7867";
@@ -28,8 +29,10 @@ public class WeatherService {
     private static final String UNITS = "metric";
     private static final String LANGUAGE = "pl";
     private static final Integer CNT = 40;
+
     private final ForecastRootToCurrentWeatherEntityMapper mapper;
     private final CurrentWeatherRepo currentWeatherRepo;
+    private final WebClient openApiClient;
 
     public CurrentWeatherEntity getWeatherForecast() {
         return currentWeatherRepo.findFirstByOrderByIdDesc()
@@ -37,8 +40,7 @@ public class WeatherService {
     }
 
     public RootFiveDays getFiveDaysForecast() {
-        WebClient client = WebClient.create(BASE_URL);
-        return client.get()
+        return openApiClient.get()
                 .uri(uriBuilder -> uriBuilder.path(FIVE_DAYS_FORECAST)
                         .queryParam("lat", LATITUDE)
                         .queryParam("lon", LONGITUDE)
@@ -63,8 +65,7 @@ public class WeatherService {
     }
 
     private ForecastRoot getWeatherFromApi() {
-        WebClient client = WebClient.create(BASE_URL);
-        return client.get()
+        return openApiClient.get()
                 .uri(uriBuilder -> uriBuilder.path(SINGLE_FORECAST).queryParam("lat", LATITUDE)
                         .queryParam("lon", LONGITUDE)
                         .queryParam("appid", appId)
