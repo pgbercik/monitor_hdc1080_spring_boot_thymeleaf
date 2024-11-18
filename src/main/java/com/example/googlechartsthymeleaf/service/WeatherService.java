@@ -55,7 +55,7 @@ public class WeatherService {
                 .block();
     }
 
-    @Scheduled(cron = "${fetch.weather.interval}")
+    @Scheduled(cron = "${open-api.fetch-weather-interval}")
     public void saveWeatherToDb() {
         log.info("Fetching weather forecast from openweathermap API");
         CurrentWeatherEntity currentWeatherEntity = mapper.apply(getWeatherFromApi());
