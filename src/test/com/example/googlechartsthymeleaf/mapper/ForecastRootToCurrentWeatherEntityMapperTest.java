@@ -44,7 +44,7 @@ class ForecastRootToCurrentWeatherEntityMapperTest {
         assertEquals(mappedEntity.getLongitude(), forecastRoot.getCoord().getLon());
 
         Weather weather = forecastRoot.getWeather().get(0);
-        assertNotEquals(weather, null);
+        assertNotEquals(null, weather);
         assertEquals(mappedEntity.getWeatherConditionId(), weather.getId());
         assertEquals(mappedEntity.getWeatherDescription(), weather.getDescription());
         assertEquals(mappedEntity.getWeatherIconId(), weather.getIcon());
@@ -81,6 +81,6 @@ class ForecastRootToCurrentWeatherEntityMapperTest {
     void shouldThrowExceptionWhenWeatherListIsEmpty() {
         forecastRoot.getWeather().clear();
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> mapper.apply(forecastRoot));
-        assertEquals(exception.getMessage(), "API returned no Weather object");
+        assertEquals("API returned no Weather object", exception.getMessage());
     }
 }
