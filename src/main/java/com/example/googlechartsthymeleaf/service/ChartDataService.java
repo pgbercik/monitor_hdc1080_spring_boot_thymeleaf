@@ -58,8 +58,7 @@ public class ChartDataService {
 
         if (!list.isEmpty()) {
             list.forEach(temperature -> {
-                String czas = String.valueOf(temperature.getTime());
-                czas = czas.substring(11, 16);
+                String czas = temperature.getTime().toLocalTime().truncatedTo(ChronoUnit.MINUTES).toString();
                 double temp = temperature.getTemperature();
                 double hum = temperature.getHumidity();
 
@@ -85,7 +84,7 @@ public class ChartDataService {
                 .stream()
                 .map(list -> {
                     List<Object> row = new ArrayList<>();
-                    row.add(TimeUtils.epochToLocalDateTime(list.getDt().longValue(), fiveDaysForecast.getCity().getTimezone()).truncatedTo(ChronoUnit.SECONDS).toString().replace("T"," "));
+                    row.add(TimeUtils.epochToLocalDateTime(list.getDt().longValue(), fiveDaysForecast.getCity().getTimezone()).truncatedTo(ChronoUnit.SECONDS).toString().replace("T", " "));
                     row.add(list.getMain().getTemp());
                     return row;
                 })
