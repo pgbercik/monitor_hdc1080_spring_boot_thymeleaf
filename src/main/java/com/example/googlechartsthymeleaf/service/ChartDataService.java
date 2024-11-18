@@ -58,7 +58,7 @@ public class ChartDataService {
 
         if (!list.isEmpty()) {
             list.forEach(temperature -> {
-                String czas = String.valueOf(temperature.getCzas());
+                String czas = String.valueOf(temperature.getTime());
                 czas = czas.substring(11, 16);
                 double temp = temperature.getTemperature();
                 double hum = temperature.getHumidity();

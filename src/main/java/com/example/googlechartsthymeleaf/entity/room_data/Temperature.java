@@ -11,7 +11,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "my_room")
@@ -29,9 +29,8 @@ public class Temperature {
 
     @ColumnDefault("CURRENT_TIMESTAMP")
     @CreationTimestamp
-//    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false, updatable=false)
-    private Date czas;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime time;
 
 
     public Temperature(Float temperature, Float humidity) {
@@ -40,28 +39,42 @@ public class Temperature {
 
     }
 
-    public Temperature() { }
+    public Temperature() {
+    }
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Float getTemperature() { return temperature; }
+    public Float getTemperature() {
+        return temperature;
+    }
 
-    public void setTemperature(Float temperature) { this.temperature = temperature; }
+    public void setTemperature(Float temperature) {
+        this.temperature = temperature;
+    }
 
-    public Float getHumidity() { return humidity; }
+    public Float getHumidity() {
+        return humidity;
+    }
 
-    public void setHumidity(Float humidity) { this.humidity = humidity; }
+    public void setHumidity(Float humidity) {
+        this.humidity = humidity;
+    }
 
-    public String getCzas() {
+    public String getTime() {
         SimpleDateFormat timeFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return timeFormatter.format(czas);
+        return timeFormatter.format(time);
     }
 
 
-
-    public void setCzas(Date czas) { this.czas = czas; }
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
 
     @Override
     public String toString() {
@@ -69,7 +82,7 @@ public class Temperature {
                 "id=" + id +
                 ", temperature=" + temperature +
                 ", humidity=" + humidity +
-                ", czas='" + czas + '\'' +
+                ", czas='" + time + '\'' +
                 '}';
     }
 }
