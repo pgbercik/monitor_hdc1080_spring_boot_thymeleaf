@@ -1,7 +1,8 @@
 package com.example.googlechartsthymeleaf.service;
 
-import com.example.googlechartsthymeleaf.entity.room_data.Temperature;
+import com.example.googlechartsthymeleaf.dto.TemperatureDto;
 import com.example.googlechartsthymeleaf.repository.TemperatureRepo;
+import com.example.googlechartsthymeleaf.util.TimeUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,14 @@ public class TableDataService {
     /**
      * Returns data for the table from DB.
      */
-    public List<Temperature> getDataForTable() {
-        return temperatureRepo.findTop60ByOrderByIdDesc();
+    public List<TemperatureDto> getDataForTable() {
+        return temperatureRepo.findTop60ByOrderByIdDesc().stream()
+                .map(t -> TemperatureDto.builder()
+                        .id(t.getId())
+                        .temperature(t.getTemperature())
+                        .humidity(t.getHumidity())
+                        .dateFormatted(TimeUtils.localDateTimeToString(t.getTime(), TimeUtils.LOCAL_DATE_TIME_FORMATTER))
+                        .build())
+                .toList();
     }
 }
