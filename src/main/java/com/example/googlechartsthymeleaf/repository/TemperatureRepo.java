@@ -23,5 +23,7 @@ public interface TemperatureRepo extends CrudRepository<Temperature,Long> {
     @Query("SELECT t FROM Temperature t WHERE t.id >=((Select max(t.id) from Temperature t) -360) order by t.id")
     List<Temperature> findTop360();
 
+    Temperature findTop1ByOrderByIdDesc();
+
 
 }

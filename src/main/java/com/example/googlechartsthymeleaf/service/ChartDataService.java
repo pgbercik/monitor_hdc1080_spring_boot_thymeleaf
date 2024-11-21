@@ -87,7 +87,7 @@ public class ChartDataService {
 
     private List<List<Object>> formatDataForChart(Set<TempHumTimeOnly> list) {
         return list.stream()
-                .map(t -> List.of(t.getHourMinuteFromUnixTime(), t.getTemperature(), ((Object) t.getHumidity())))
+                .map(t -> List.of(t.getHourMinuteFromUnixTime(), t.temperature(), ((Object) t.humidity())))
                 .toList();
     }
 
@@ -107,22 +107,8 @@ public class ChartDataService {
 
     @Scheduled(cron = "0 */1 * * * *")
     private void getTempAndHumidityFromHomeAssistant() {
-        SensorState temp = homeAssistantClient.get().uri(uriBuilder -> uriBuilder
-                        .path(temperatureEndpoint)
-                        .build()
-                ).header("Authorization", "Bearer " + homeAssistantToken)
-                .retrieve()
-                .bodyToMono(SensorState.class)
-                .block();
-
-        SensorState hum = homeAssistantClient.get().uri(uriBuilder -> uriBuilder
-                        .path(humidityEndpoint)
-                        .build()
-                ).header("Authorization", "Bearer " + homeAssistantToken)
-                .retrieve()
-                .bodyToMono(SensorState.class)
-                .block();
-
+        SensorState temp = getSensorState(temperatureEndpoint);
+        SensorState hum = getSensorState(humidityEndpoint);
 
         if (temp == null) {
             throw new WrongAnswerFromApiException("Null temperature returned from Home Assistant");
@@ -131,14 +117,41 @@ public class ChartDataService {
             throw new WrongAnswerFromApiException("Null humidity returned from Home Assistant");
         }
 
-        Temperature t = Temperature.builder()
-                .time(temp.getLastReported().withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime())
-                .temperature(temp.getState())
-                .humidity(hum.getState())
-                .build();
+        LocalDateTime sensorLastUpdate = temp.getLastReported()
+                .withZoneSameInstant(ZoneId.systemDefault())
+                .toLocalDateTime().truncatedTo(ChronoUnit.SECONDS);
+
+        if (alreadySavedInDatabase(sensorLastUpdate)) {
+            return;
+        }
 
         log.info("Saving room temperature and humidity to database");
-        temperatureRepo.save(t);
+        temperatureRepo.save(
+                Temperature.builder()
+                        .time(sensorLastUpdate)
+                        .temperature(temp.getState())
+                        .humidity(hum.getState())
+                        .build()
+        );
 
+    }
+
+    private boolean alreadySavedInDatabase(LocalDateTime sensorLastUpdate) {
+        Temperature lastRowFromTable = temperatureRepo.findTop1ByOrderByIdDesc();
+
+        if (lastRowFromTable == null) {
+            return false;
+        }
+        return sensorLastUpdate.isEqual(lastRowFromTable.getTime().truncatedTo(ChronoUnit.SECONDS));
+    }
+
+    private SensorState getSensorState(String temperatureEndpoint) {
+        return homeAssistantClient.get().uri(uriBuilder -> uriBuilder
+                        .path(temperatureEndpoint)
+                        .build()
+                ).header("Authorization", "Bearer " + homeAssistantToken)
+                .retrieve()
+                .bodyToMono(SensorState.class)
+                .block();
     }
 }

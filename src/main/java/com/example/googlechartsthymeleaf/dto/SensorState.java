@@ -5,6 +5,7 @@ import lombok.Getter;
 
 import java.time.ZonedDateTime;
 
+@SuppressWarnings("unused")
 @Getter
 public class SensorState {
 
