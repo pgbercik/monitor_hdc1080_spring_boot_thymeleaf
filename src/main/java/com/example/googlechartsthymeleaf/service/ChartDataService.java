@@ -1,12 +1,19 @@
 package com.example.googlechartsthymeleaf.service;
 
+import com.example.googlechartsthymeleaf.dto.SensorState;
 import com.example.googlechartsthymeleaf.entity.outside_weather.TempHumTimeOnly;
 import com.example.googlechartsthymeleaf.entity.room_data.Temperature;
+import com.example.googlechartsthymeleaf.exception.WrongAnswerFromApiException;
 import com.example.googlechartsthymeleaf.json_model.RootFiveDays;
 import com.example.googlechartsthymeleaf.repository.CurrentWeatherRepo;
 import com.example.googlechartsthymeleaf.repository.TemperatureRepo;
 import com.example.googlechartsthymeleaf.util.TimeUtils;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -15,17 +22,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+@Slf4j
+@RequiredArgsConstructor
 @Service
 public class ChartDataService {
+
+    @Value("${home-assistant.temperature-endpoint}")
+    private String temperatureEndpoint;
+
+    @Value("${home-assistant.humidity-endpoint}")
+    private String humidityEndpoint;
+
+    @Value("${home-assistant.auth-token}")
+    private String homeAssistantToken;
+
     private final TemperatureRepo temperatureRepo;
     private final CurrentWeatherRepo currentWeatherRepo;
     private final WeatherService weatherService;
-
-    public ChartDataService(TemperatureRepo temperatureRepo, CurrentWeatherRepo currentWeatherRepo, WeatherService weatherService) {
-        this.temperatureRepo = temperatureRepo;
-        this.currentWeatherRepo = currentWeatherRepo;
-        this.weatherService = weatherService;
-    }
+    private final WebClient homeAssistantClient;
 
 
     /**
@@ -89,5 +103,42 @@ public class ChartDataService {
                     return row;
                 })
                 .toList();
+    }
+
+    @Scheduled(cron = "0 */1 * * * *")
+    private void getTempAndHumidityFromHomeAssistant() {
+        SensorState temp = homeAssistantClient.get().uri(uriBuilder -> uriBuilder
+                        .path(temperatureEndpoint)
+                        .build()
+                ).header("Authorization", "Bearer " + homeAssistantToken)
+                .retrieve()
+                .bodyToMono(SensorState.class)
+                .block();
+
+        SensorState hum = homeAssistantClient.get().uri(uriBuilder -> uriBuilder
+                        .path(humidityEndpoint)
+                        .build()
+                ).header("Authorization", "Bearer " + homeAssistantToken)
+                .retrieve()
+                .bodyToMono(SensorState.class)
+                .block();
+
+
+        if (temp == null) {
+            throw new WrongAnswerFromApiException("Null temperature returned from Home Assistant");
+        }
+        if (hum == null) {
+            throw new WrongAnswerFromApiException("Null humidity returned from Home Assistant");
+        }
+
+        Temperature t = Temperature.builder()
+                .time(temp.getLastReported().withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime())
+                .temperature(temp.getState())
+                .humidity(hum.getState())
+                .build();
+
+        log.info("Saving room temperature and humidity to database");
+        temperatureRepo.save(t);
+
     }
 }

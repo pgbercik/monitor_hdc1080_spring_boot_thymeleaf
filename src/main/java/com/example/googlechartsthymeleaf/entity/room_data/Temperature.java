@@ -8,12 +8,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -23,6 +22,7 @@ import java.time.LocalDateTime;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "my_room")
 public class Temperature {
 
@@ -36,8 +36,6 @@ public class Temperature {
     @Column(nullable = false)
     private Float humidity;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime time;
 
