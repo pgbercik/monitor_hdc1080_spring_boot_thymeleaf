@@ -43,17 +43,17 @@ public class ChartDataService {
 
 
     /**
-     * We're retrieving data from database and returning in proper format (for 6h chart).
+     * We're retrieving data from database and returning in proper format (for 24h chart).
      */
     public List<List<Object>> getChartData24H() {
-        return formatDataForChart(temperatureRepo.findLast24h());
+        return formatDataForChart(temperatureRepo.findLastMeasurements(LocalDateTime.now().minusHours(24), 5));
     }
 
     /**
      * We're retrieving data from database and returning in proper format (for 6h chart).
      */
     public List<List<Object>> getChartData6H() {
-        return formatDataForChart(temperatureRepo.findTop360());
+        return formatDataForChart(temperatureRepo.findLastMeasurements(LocalDateTime.now().minusHours(6), 1));
     }
 
     public List<List<Object>> getChartData24hOutside() {
@@ -105,7 +105,7 @@ public class ChartDataService {
                 .toList();
     }
 
-    @Scheduled(cron = "0 */1 * * * *")
+    @Scheduled(cron = "${home-assistant.data-fetch-cron}")
     private void getTempAndHumidityFromHomeAssistant() {
         SensorState temp = getSensorState(temperatureEndpoint);
         SensorState hum = getSensorState(humidityEndpoint);
